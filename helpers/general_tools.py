@@ -10,7 +10,6 @@ import time
 import matplotlib.pyplot as plt
 import random
 import psutil
-import shutil
 
 import pydicom
 
@@ -302,11 +301,6 @@ def create_dic_by_dic_and_keys(keys, old_dic):
     return new_dic
 
 
-def copy_report(src, dst):
-    import shutil
-    shutil.copyfile(src, dst)
-
-
 def convert_string_list_to_type(li, t):
     ret = list()
 
@@ -363,36 +357,6 @@ def class_attributes_as_dict(clazz):
     for t in tuples:
         d[t[1]] = t[0]
     return d
-
-
-def clean_up_folders(folders):
-    for folder in folders:
-        assert ("tools" not in folder)
-        if not os.path.isdir(folder):
-            continue
-        for filename in os.listdir(folder):
-            file_path = os.path.join(folder, filename)
-            try:
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-            except Exception as e:
-                print('Failed to delete %s. Reason: %s' % (file_path, e))
-
-
-def remove_files(files):
-    for file in files:
-        if os.path.isfile(file):
-            os.remove(file)
-
-
-def removeDir(src):
-    try:
-        shutil.rmtree(src)
-    except Exception as e:
-        print('Failed to delete %s. Reason: %s' % (src, e))
-        raise e
 
 
 def arrayify(*args):

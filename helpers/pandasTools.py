@@ -5,7 +5,7 @@ from typing import List
 import numpy as np
 import pandas as pd
 
-from helpers.general_tools import copy_report
+from helpers.folderTools import copy_report
 from helpers.timeTools import addDateToFn
 
 
