@@ -4,7 +4,8 @@ import shutil
 
 # "E:\\AramisData",
 
-from helpers.folderTools import recursiveWalk
+from helpers.folderTools import recursiveWalk, dirsExist
+from helpers.pandasTools import listsToCsv
 from helpers.timeTools import myTimer
 
 
@@ -61,18 +62,45 @@ def isCsv(s: str):
 
 
 def copyFiles(src, dst, filter=lambda x: True, debug=False):
+    mt = myTimer("copyFiles")
+    mt.start()
+    dirsExist([src, dst])
+
     _, fs = recursiveWalk(src, filterFunction=filter)
     N = len(fs)
+    cfc = 0  # copiedFilesCount
+    ncfc = 0  # notCopiedFilesCount
+    okFiles = 0
+    notOkFiles = 0
     for i in range(N):
         f = fs[i]
         isOk = filter(f)
+
         if isOk:
+            okFiles = okFiles + 1
             tail = f.replace(src, "")
             newDst = dst + tail
-            shutil.copy(f, newDst)
+            if os.path.isfile(newDst):
+                ncfc = ncfc + 1
+                continue
+            else:
+                shutil.copy(f, newDst)
+                cfc = cfc + 1
             if debug:
                 print("src: ", src)
                 print("dst: ", newDst)
+        else:
+            notOkFiles = notOkFiles + 1
+
+    print("Total number of files found: ", N)
+    print("Files not copied: ", cfc)
+    print("Files not copied: ", ncfc)
+    print("Files ok to copy: ", okFiles)
+    print("Files not ok to copy: ", notOkFiles)
+    print("-------------")
+    # lists = mt.end()
+    # listsToCsv(lists, dstDir="temp", name="runTimeReport", withDate=True)
+
 # baseDirs = [
 #     # "H:",
 #     "G:"

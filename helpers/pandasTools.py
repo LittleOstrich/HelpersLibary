@@ -5,7 +5,6 @@ from typing import List
 import numpy as np
 import pandas as pd
 
-from helpers.folderTools import copy_report
 from helpers.timeTools import addDateToFn
 
 
@@ -26,16 +25,19 @@ def list_to_csv(vals, delim=";"):
 def listsGet(lists, j, i):
     try:
         return str(lists[j][i])
-    except:
-        return str(-1)
+    except Exception as e:
+        pass
+    return str(-1)
 
 
-def listsToCsv(lists, dst="temp" + os.sep + "defaultName.csv", withDate=False, delim=";", debug=False,
-               deleteIfExists=False):
+def listsToCsv(lists, dstDir="temp", name="defaultName.csv", withDate=True, delim=";", debug=False,
+               deleteIfExists=False, createDirOk=True):
     numKeys = len(lists)
     numRows = len(lists[0])
+    if createDirOk:
+        os.makedirs(dstDir, exist_ok=True)
 
-    ffp = dst
+    ffp = dstDir + os.sep + name
 
     if ffp.endswith(".csv"):
         pass
@@ -134,12 +136,6 @@ def csv_to_xlsx(src, dst=None, debug=False):
         print("Ups.. likely the excel workbook package is not installed...")
         print("No xlsx was created..")
         print(e)
-
-
-def finish_up_report_files(fn, fn2):
-    copy_report(fn, fn2)
-    csv_to_xlsx(fn)
-    csv_to_xlsx(fn2)
 
 
 def dict_to_csv_string(dic: dict, delim=";"):

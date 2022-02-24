@@ -66,9 +66,9 @@ class myTimer:
         self.on = False
 
         if self.counter % self.reportFrequency == 0:
-            self.report()
+            self.printedReport()
 
-    def report(self, write=False):
+    def printedReport(self, write=False):
         starts = np.array(self.starts)
         ends = np.array(self.ends)
 
@@ -87,5 +87,13 @@ class myTimer:
             ffp = self.dst + os.sep + fn + ".csv"
             iterations = [helperKeys.timeToolKeys.iteration] + np.arange(len(diffs)).tolist()
             durations = [helperKeys.timeToolKeys.duration] + diffs.tolist()
+            lists = [iterations, durations]
 
-            # listsToCsv(lists, dst="temp", name="runTimeReport", withDate=True)
+    # def createReportDf(self):
+    #     headers = helperKeys.timeToolKeys
+    #     fn = addDateToFn(self.name)
+    #     ffp = self.dst + os.sep + fn + ".csv"
+    #     iterations = [helperKeys.timeToolKeys.iteration] + np.arange(len(diffs)).tolist()
+    #     durations = [helperKeys.timeToolKeys.duration] + diffs.tolist()
+    #     lists = [iterations, durations]
+    #     return lists

@@ -4,6 +4,14 @@ import shutil
 from pathlib import Path
 
 
+def dirsExist(args):
+    for arg in args:
+        srcDirExists = os.path.isdir(arg)
+        if not srcDirExists:
+            print("SrcDir does not exsists: ", arg)
+            assert False
+
+
 def copyReport(src, dst):
     shutil.copyfile(src, dst)
 

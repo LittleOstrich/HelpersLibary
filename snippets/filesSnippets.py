@@ -1,11 +1,26 @@
 import os
 
-from helpers.fileTools import copyFiles, isCsv
+from helpers.fileTools import copyFiles
+
+
+def allowedFileEndingsTest1():
+    allowedFileEndings = (".h5", ".csv", ".xls")
+
+    test1 = "jhfejrhrhj.h5"
+    test2 = "jhfejrhrhj.csv"
+    test3 = "jhfejrhrhj.xls"
+
+    f = lambda x: x.endswith(allowedFileEndings)
+
+    print(f(test1))
+    print(f(test2))
+    print(f(test3))
+
 
 base = "C:\\Users\\geiss\\OneDrive\\Desktop"
 src = base + os.sep + "AramisData"
 dst = base + os.sep + "AramisDataTmp\\AramisData"
 
-f = lambda x: x.endswith(".h5")
-f2 = lambda x: f(x) or isCsv(x)
-copyFiles(src, dst, f2)
+allowedFileEndings = (".h5", ".csv", ".xls")
+f = lambda x: x.endswith(allowedFileEndings)
+copyFiles(src, dst, f)
