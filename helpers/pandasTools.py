@@ -30,7 +30,7 @@ def listsGet(lists, j, i):
     return str(-1)
 
 
-def listsToCsv(lists, dstDir="temp", name="defaultName.csv", withDate=True, delim=";", debug=False,
+def listsToCsv(lists, dstDir="tmp", name="defaultName.csv", withDate=True, delim=";", debug=False,
                deleteIfExists=False, createDirOk=True):
     numKeys = len(lists)
     numRows = len(lists[0])

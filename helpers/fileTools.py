@@ -93,13 +93,13 @@ def copyFiles(src, dst, filter=lambda x: True, debug=False):
             notOkFiles = notOkFiles + 1
 
     print("Total number of files found: ", N)
-    print("Files not copied: ", cfc)
+    print("Files copied: ", cfc)
     print("Files not copied: ", ncfc)
     print("Files ok to copy: ", okFiles)
     print("Files not ok to copy: ", notOkFiles)
     print("-------------")
     # lists = mt.end()
-    # listsToCsv(lists, dstDir="temp", name="runTimeReport", withDate=True)
+    # listsToCsv(lists, dstDir="tmp", name="runTimeReport", withDate=True)
 
 # baseDirs = [
 #     # "H:",

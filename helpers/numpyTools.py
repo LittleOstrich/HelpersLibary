@@ -11,7 +11,7 @@ def safeIndexing(arr, ind):
         return arr[ind]
 
 
-def saveConcate(args, axis=0):
+def saveConcatenate(args, axis=0):
     hp = [_ for _ in range(len(args[0].shape))]
     hp.remove(axis)
     hp = np.array(hp)
@@ -25,8 +25,8 @@ def saveConcate(args, axis=0):
         if len(curShape) >= hp + 1:
             if curShape[hp] == desShape:
                 arrays.append(arg)
-    concatedArray = np.concatenate(arrays, axis=axis)
-    return concatedArray
+    concatenatedArray = np.concatenate(arrays, axis=axis)
+    return concatenatedArray
 
 
 def matrixAsImage(A, show=False, save=True, dstDir=None, fn=None):
@@ -40,3 +40,16 @@ def matrixAsImage(A, show=False, save=True, dstDir=None, fn=None):
         dst = dstDir + os.sep + fn
         img.save(dst, "png")
     return img
+
+
+def matrixToFile(A, dstDir, fn):
+    rows, cols = A.shape
+    ffp = dstDir + os.sep + fn
+    f = open(ffp, "w+")
+    for i in range(rows):
+        s = ""
+        for j in range(cols):
+            s = s + str(A[i, j]) + " "
+        s = s[:-1] + "\n"
+        f.write(s)
+    f.close()

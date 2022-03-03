@@ -8,7 +8,7 @@ def dirsExist(args):
     for arg in args:
         srcDirExists = os.path.isdir(arg)
         if not srcDirExists:
-            print("SrcDir does not exsists: ", arg)
+            print("SrcDir does not exists: ", arg)
             assert False
 
 

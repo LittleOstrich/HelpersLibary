@@ -39,7 +39,7 @@ def date():
 
 class myTimer:
 
-    def __init__(self, name, dst="temp", saveReport=False, reportFrequency=1):
+    def __init__(self, name, dst="tmp", saveReport=False, reportFrequency=1):
         self.name = name
         self.counter = 0
         self.starts = list()

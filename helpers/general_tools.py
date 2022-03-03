@@ -164,7 +164,7 @@ def create_empty_dict_by_keys(keys):
 
 
 def get_default_images_output_dir():
-    return "F:\\temp"
+    return "F:\\tmp"
 
 
 def save_img(fn, img):
@@ -255,7 +255,7 @@ def get_excluded():
 
 
 def get_bad_images():
-    f = open("temp/bad_images.txt", "r")
+    f = open("tmp/bad_images.txt", "r")
     excluded = list()
     for line in f.readlines():
         excluded.append(line.strip())
