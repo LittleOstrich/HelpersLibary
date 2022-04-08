@@ -1,6 +1,7 @@
+import numpy as np
 import pandas as pd
 
-from helpers.pandasTools import dataframeToNumpyArray
+from helpers.pandasTools import dataframeToNumpyArray, readXlsx
 
 
 def test1():
@@ -13,4 +14,17 @@ def test1():
     print(arr)
 
 
-test1()
+def test2():
+    fn = "tmp\\Possible Locations_Accomodations May-June 22.xlsx"
+    df: pd.DataFrame = readXlsx(fn)
+    print(df.keys())
+
+    df = df[["Mail", "Contacted? They replied?"]]
+    df = df.loc[df["Contacted? They replied?"] != "yes"]
+    df = df.loc[df["Contacted? They replied?"] != "Yes"]
+    mails = df["Mail"].tolist()
+    print(mails)
+    return df
+
+
+test2()

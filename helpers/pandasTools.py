@@ -138,6 +138,11 @@ def csv_to_xlsx(src, dst=None, debug=False):
         print(e)
 
 
+def readXlsx(fn, header=0):
+    df = pd.read_excel(fn, header=header, index_col=False)
+    return df
+
+
 def dict_to_csv_string(dic: dict, delim=";"):
     row = ""
     for key in dic.keys():

@@ -53,3 +53,31 @@ def matrixToFile(A, dstDir, fn):
         s = s[:-1] + "\n"
         f.write(s)
     f.close()
+
+
+def invIndexSlicing(A, indices):
+    N = len(A)
+    ret = np.arange(N)
+    A[indices] = -1
+    invIndices = ret[A != -1]
+    return invIndices
+
+
+def findMatches(A, toMatch):
+    N = len(A)
+    ret = list()
+    for i in range(N):
+        a = A[i]
+        if a in toMatch:
+            ret.append(a)
+    return a
+
+
+def findNotMatches(A, toMatch):
+    N = len(A)
+    ret = list()
+    for i in range(N):
+        a = A[i]
+        if a not in toMatch:
+            ret.append(a)
+    return a
