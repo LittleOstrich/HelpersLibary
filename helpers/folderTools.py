@@ -54,6 +54,40 @@ def recursiveWalk(sD=".", filterFunction=None, debug=False):
     for root, dirs, files in os.walk(sD):
         for name in files:
             fp = os.path.join(root, name)
+            fs.add(fp)
+        for dir in dirs:
+            dp = os.path.join(root, dir)
+            ds.add(dp)
+    ds = list(ds)
+    fs = list(fs)
+
+    dsTmp = list()
+    fsTmp = list()
+    if filterFunction is not None:
+        for f in fs:
+            if filterFunction(f):
+                fsTmp.append(f)
+        for d in ds:
+            if filterFunction(d):
+                dsTmp.append(d)
+    fs = fsTmp
+    ds = dsTmp
+
+    if debug:
+        for d in ds:
+            print(d)
+        for f in fs:
+            print(f)
+
+    return ds, fs
+
+
+def recursiveWalk2(sD=".", filterFunction=None, debug=False):
+    fs = set()
+    ds = set()
+    for root, dirs, files in os.walk(sD):
+        for name in files:
+            fp = os.path.join(root, name)
             if filterFunction is None:
                 fs.add(fp)
             else:

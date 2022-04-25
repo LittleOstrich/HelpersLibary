@@ -20,7 +20,7 @@ def createScatterPlot(data, title="", dst=None, save=False, show=True, dpi=500, 
     if numFeatures == 3:
         scatterPlot3D(data=data, title=title, dst=dst, save=save, show=show, dpi=dpi, colours=colours, labels=labels,
                       alpha=alpha)
-    elif numFeatures == 2:
+    # elif numFeatures == 2:
         scatterPlot2D(data=data, title=title, dst=dst, save=save, show=show, dpi=dpi, colours=colours, labels=labels,
                       alpha=alpha)
     elif numFeatures == 1:
