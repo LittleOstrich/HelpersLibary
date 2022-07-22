@@ -59,7 +59,7 @@ def splitConfusionLabels(confusionLabels):
     return TP, FP, FN, TN
 
 
-def computeRSquared(y_true, y_pred):
+def computeRsquared(y_true, y_pred):
     SSE = np.sum(np.square(y_true - y_pred))
     SST = np.sum(np.square(y_true - np.mean(y_pred)))
 
@@ -67,8 +67,8 @@ def computeRSquared(y_true, y_pred):
     return R
 
 
-def computeAdjustedRsquaredVal(y_true, y_pred, n, p):
-    RSquared = computeRSquared(y_true, y_pred)
+def computeAdjustedRsquared(y_true, y_pred, n, p):
+    RSquared = computeRsquared(y_true, y_pred)
     adjustedRSquared = 1 - (1 - RSquared) * ((n - 1) / (n - p - 1))
 
-    # return adjustedRSquared
+    return adjustedRSquared

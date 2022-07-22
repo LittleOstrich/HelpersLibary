@@ -107,10 +107,15 @@ def readCsv(fn, header=0, delimiter=";", engine='python'):
 
 
 loadDataframe = readCsv
+readDataframe = loadDataframe
 
 
 def writeCsv(df: pd.DataFrame, dst, fn):
-    df.to_csv("n_clusters.csv", sep=";")
+    fp = dst + os.sep + fn
+    df.to_csv(fp, sep=";", index=False)
+
+
+writeDataframe = writeCsv
 
 
 def writeDataframeToXlsx(df: pd.DataFrame, dst, fn):

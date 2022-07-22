@@ -20,9 +20,11 @@ def createScatterPlot(data, title="", dst=None, save=False, show=True, dpi=500, 
     if numFeatures == 3:
         scatterPlot3D(data=data, title=title, dst=dst, save=save, show=show, dpi=dpi, colours=colours, labels=labels,
                       alpha=alpha)
-    # elif numFeatures == 2:
+
+    elif numFeatures == 2:
         scatterPlot2D(data=data, title=title, dst=dst, save=save, show=show, dpi=dpi, colours=colours, labels=labels,
                       alpha=alpha)
+
     elif numFeatures == 1:
         scatterPlot1D(data=data, title=title, dst=dst, save=save, show=show, dpi=dpi, colours=colours, labels=labels,
                       alpha=alpha)
@@ -131,8 +133,8 @@ def nearestNeighbourscatterPlot3D(data, dst=None, save=False, show=True, title="
     if save:
         if dst is not None:
             os.makedirs(dst, exist_ok=True)
-            title = dst + os.sep + title
-        plt.savefig(title, dpi=dpi, bbox_inches="tight")
+            fp = dst + os.sep + title
+        plt.savefig(fp, dpi=dpi, bbox_inches="tight")
     if show:
         plt.show(block=True)
     plt.close('all')
@@ -154,7 +156,7 @@ def scatterPlot1D(data, save=False, show=True, title="", dst=None, dpi=500, colo
     plt.close('all')
 
 
-def plotHistogram(data, title="", dst=None, save=True, show=False, dpi=500, bins=10):
+def plotHistogram(data, title="histogram.png", dst=None, save=True, show=False, dpi=500, bins=10):
     fig = plt.figure()
     plt.hist(data, bins=bins)
     if save:
