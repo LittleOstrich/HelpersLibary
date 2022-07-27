@@ -2,10 +2,7 @@ import os
 
 import shutil
 
-# "E:\\AramisData",
-
 from helpers.folderTools import recursiveWalk, dirsExist
-from helpers.pandasTools import listsToCsv
 from helpers.timeTools import myTimer
 
 
@@ -50,6 +47,53 @@ def getParentDirs(baseDirs, dstDirs):
     mt.end()
 
 
+def copyProject(src, dst, allowedFileEndings=None, ignoreFolder=None, debug=False):
+    ds, fs = recursiveWalk(src)
+
+    for d in ds:
+        relDir = os.path.relpath(d, src)
+        newFp = dst + os.sep + relDir
+
+        br = False
+        if ignoreFolder is not None:
+            for iF in ignoreFolder:
+                if iF in newFp:
+                    br = True
+                    break
+        if br:
+            continue
+
+        if debug:
+            print("dir")
+            print(d)
+            print(newFp)
+            print("-")
+        else:
+            os.makedirs(newFp, exist_ok=True)
+
+    for f in fs:
+        fe = f.split(".")[-1]
+        if fe in allowedFileEndings or allowedFileEndings is None:
+            relDir = os.path.relpath(f, src)
+            newFp = dst + os.sep + relDir
+            br = False
+            if ignoreFolder is not None:
+                for iF in ignoreFolder:
+                    if iF in newFp:
+                        br = True
+                        break
+            if br:
+                continue
+
+            if debug:
+                print("file")
+                print(f)
+                print(newFp)
+                print("-")
+            else:
+                copyFile(f, newFp)
+
+
 def remove_files(files):
     for file in files:
         if os.path.isfile(file):
@@ -61,12 +105,16 @@ def isCsv(s: str):
     return ret
 
 
+def copyFile(src, dst):
+    shutil.copyfile(src, dst)
+
+
 def copyFiles(src, dst, filter=lambda x: True, debug=False):
     mt = myTimer("copyFiles")
     mt.start()
     dirsExist([src, dst])
 
-    _, fs = recursiveWalk(src, filterFunction=filter)
+    _, fs = recursiveWalk(src, fileFilter=filter)
     N = len(fs)
     cfc = 0  # copiedFilesCount
     ncfc = 0  # notCopiedFilesCount
@@ -100,19 +148,3 @@ def copyFiles(src, dst, filter=lambda x: True, debug=False):
     print("-------------")
     # lists = mt.end()
     # listsToCsv(lists, dstDir="tmp", name="runTimeReport", withDate=True)
-
-# baseDirs = [
-#     # "H:",
-#     "G:"
-#     "F:",
-# ]
-# # "E:\\AramisData\\LME LFT",
-# destDirs = [
-#     # "E:\\AramisData\\LME1",
-#     "E:\\AramisData\\LME2", "E:\\AramisData\\LME3"
-# ]
-# H = ""
-# func = lambda x: x.endswith(".csv")
-# N = len(H)
-# c = 0
-# mt = myTimer("copyingTask")

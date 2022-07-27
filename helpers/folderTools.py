@@ -12,10 +12,6 @@ def dirsExist(args):
             assert False
 
 
-def copyReport(src, dst):
-    shutil.copyfile(src, dst)
-
-
 def removeDir(src):
     try:
         shutil.rmtree(src)
@@ -48,7 +44,7 @@ def prepFolderReport(src):
         pass
 
 
-def recursiveWalk(sD=".", filterFunction=None, debug=False):
+def recursiveWalk(sD=".", fileFilter=None, debug=False):
     fs = set()
     ds = set()
     for root, dirs, files in os.walk(sD):
@@ -63,15 +59,12 @@ def recursiveWalk(sD=".", filterFunction=None, debug=False):
 
     dsTmp = list()
     fsTmp = list()
-    if filterFunction is not None:
+    if fileFilter is not None:
         for f in fs:
-            if filterFunction(f):
+            if fileFilter(f):
                 fsTmp.append(f)
-        for d in ds:
-            if filterFunction(d):
-                dsTmp.append(d)
-    fs = fsTmp
-    ds = dsTmp
+        fs = fsTmp
+        ds = dsTmp
 
     if debug:
         for d in ds:
@@ -82,23 +75,23 @@ def recursiveWalk(sD=".", filterFunction=None, debug=False):
     return ds, fs
 
 
-def recursiveWalk2(sD=".", filterFunction=None, debug=False):
+def recursiveWalk2(sD=".", fileFilter=None, debug=False):
     fs = set()
     ds = set()
     for root, dirs, files in os.walk(sD):
         for name in files:
             fp = os.path.join(root, name)
-            if filterFunction is None:
+            if fileFilter is None:
                 fs.add(fp)
             else:
-                if filterFunction(fp):
+                if fileFilter(fp):
                     fs.add(fp)
         for dir in dirs:
             dp = os.path.join(root, dir)
-            if filterFunction is None:
+            if fileFilter is None:
                 ds.add(dp)
             else:
-                if filterFunction(dp):
+                if fileFilter(dp):
                     ds.add(dp)
     ds = list(ds)
     fs = list(fs)
